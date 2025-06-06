@@ -13,12 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Крок 2: Налаштування середовища компілятора MSVC (ВИПРАВЛЕНО)
+      # Крок 2: Налаштування середовища компілятора MSVC
       - name: Setup MSVC environment
         uses: ilammy/msvc-dev-cmd@v1
 
-      # Крок 3: Компіляція проєкту за допомогою MSBuild
+      # Крок 3: Компіляція проєкту за допомогою MSBuild (ВИПРАВЛЕНО)
       - name: Build Solution
+        working-directory: ./Source
         run: MSBuild.exe UACMe.sln /p:Configuration=Release /p:Platform=x64
 
       # Крок 4: Завантаження скомпільованого файлу як артефакту
