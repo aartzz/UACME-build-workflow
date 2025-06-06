@@ -13,9 +13,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Крок 2: Налаштування середовища компілятора MSVC
-      - name: Setup MSVC
-        uses: microsoft/setup-msvc-dev@v2
+      # Крок 2: Налаштування середовища компілятора MSVC (ВИПРАВЛЕНО)
+      - name: Setup MSVC environment
+        uses: ilammy/msvc-dev-cmd@v1
 
       # Крок 3: Компіляція проєкту за допомогою MSBuild
       - name: Build Solution
