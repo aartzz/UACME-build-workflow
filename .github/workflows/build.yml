@@ -17,14 +17,14 @@ jobs:
       - name: Setup MSVC environment
         uses: ilammy/msvc-dev-cmd@v1
 
-      # Крок 3: Компіляція проєкту за допомогою MSBuild (ВИПРАВЛЕНО)
+      # Крок 3: Компіляція проєкту за допомогою MSBuild
       - name: Build Solution
         working-directory: ./Source
         run: MSBuild.exe UACMe.sln /p:Configuration=Release /p:Platform=x64
 
-      # Крок 4: Завантаження скомпільованого файлу як артефакту
+      # Крок 4: Завантаження скомпільованого файлу як артефакту (ВИПРАВЛЕНО)
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Akagi64-Executable
-          path: bin/akagi64.exe
+          path: Source/Akagi/output/x64/Release/akagi64.exe
