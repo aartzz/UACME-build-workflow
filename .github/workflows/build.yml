@@ -22,9 +22,9 @@ jobs:
         working-directory: ./Source
         run: MSBuild.exe UACMe.sln /p:Configuration=Release /p:Platform=x64
 
-      # Крок 4: Завантаження скомпільованого файлу як артефакту (ВИПРАВЛЕНО)
-      - name: Upload Artifact
+      # Крок 4: Завантаження всього пакету (лаунчер + DLL) як артефакту (ВИПРАВЛЕНО)
+      - name: Upload Artifact Package
         uses: actions/upload-artifact@v4
         with:
-          name: Akagi64-Executable
-          path: Source/Akagi/output/x64/Release/akagi64.exe
+          name: UACMe-Package-x64
+          path: bin/
