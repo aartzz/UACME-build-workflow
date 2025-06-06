@@ -9,11 +9,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # Крок 1: Завантаження коду з вашого репозиторію
+      # Крок 1: Завантаження коду
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Крок 2: Налаштування середовища компілятора MSVC
+      # Крок 2: Налаштування середовища компілятора
       - name: Setup MSVC environment
         uses: ilammy/msvc-dev-cmd@v1
 
@@ -22,17 +22,19 @@ jobs:
         working-directory: ./Source
         run: MSBuild.exe UACMe.sln /p:Configuration=Release /p:Platform=x64
 
-      # Крок 4: Створення папки bin та копіювання готових файлів (НОВИЙ КРОК)
-      - name: Stage Artifacts
+      # Крок 4: Створення "сцени" для артефактів і копіювання файлів (НОВИЙ НАДІЙНИЙ КРОК)
+      - name: Create Staging Directory and Gather Files
         run: |
-          mkdir bin
-          copy Source\Akagi\output\x64\Release\akagi64.exe bin\
-          copy Source\Akatsuki\output\x64\Release\Akatsuki64.dll bin\
-          copy Source\Fubuki\output\x64\Release\Fubuki64.dll bin\
+          mkdir staging
+          copy Source\Akagi\output\x64\Release\akagi64.exe staging\
+          copy Source\Akatsuki\output\x64\Release\Akatsuki64.dll staging\
+          copy Source\Fubuki\output\x64\Release\Fubuki64.dll staging\
+          echo "--- Staging Directory Contents ---"
+          dir staging
 
-      # Крок 5: Пакування папки bin в артефакт
+      # Крок 5: Пакування папки "staging" в артефакт
       - name: Upload Artifact Package
         uses: actions/upload-artifact@v4
         with:
           name: UACMe-Package-x64
-          path: bin/
+          path: staging/
